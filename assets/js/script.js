@@ -2,17 +2,17 @@
 // Get the button elements and add event listeners to them
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Gets all the button from the tag name button from the DOM
     let buttons = document.getElementsByTagName("button");
 
     for (let button of buttons) {
         button.addEventListener("click", function() {
             // Asks if the submit button is press, otherwise informs you with what button was pressed.
             if (this.getAttribute("data-type") == "submit") {
-                alert("You clicked Submit!");
+                checkAnswer();
             } else {
                 // Gets the pressed buttons data-type
                 let gameType = this.getAttribute("data-type");
-                // alert(`You clicked ${gameType}`);
                 runGame(gameType);
             }
         })
@@ -43,8 +43,33 @@ function runGame(gameType) {
     }
 }
 
+/**
+ * Checks the answer against the first element
+ * in the returned calculateCorrectAnswer array
+ */
+
 function checkAnswer() {
-    
+
+    // Gets the user answer from the answer-box within the HTML
+    let userAnswer = parseInt(document.getElementById('answer-box').value);
+
+    //  returns an array
+    let calculatedAnswer = calculateCorrectAnswer();
+
+    // Checks if userAnswer is the same as the calculatedAnswer array
+    // [operand1 + operand2, 'addition'] operand1 + operand2.
+    let isCorrect = userAnswer === calculatedAnswer[0];
+
+    // Checks if isCorrect is equal to true
+    if(isCorrect) {
+        alert("Hey! You got it right! :D");
+    } else {
+        alert(`Aww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+    }
+
+    // After checkAnswer() is finished, launch a new game by getting the calculateCorrectAnswer()
+    // second array [operand1 + operand2, 'addition'] which is addition.
+    runGame(calculatedAnswer[1]);
 }
 
 /**
@@ -61,7 +86,9 @@ function calculateCorrectAnswer() {
     // Checks if the operator is a plus (+), if not throw an alert
     if (operator === '+') {
         return [operand1 + operand2, 'addition'];
+        checkAnswer();
     } else {
+        // Alert the user that there is no operator in place
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`
     }
@@ -76,6 +103,9 @@ function incrementWrongAnswer() {
     
 }
 
+/**
+ * Displays the random operands and the operator (+) for the Addition game.
+ */
 function displayAdditionQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;   
