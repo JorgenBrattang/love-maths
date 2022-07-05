@@ -17,6 +17,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
     }
+
+    document.getElementById('answer-box').addEventListener('keydown', function(event){
+        if (event.key === 'Enter') {
+            checkAnswer();
+        }
+    })
+
     // Default launching gameType, when page is loaded (DOMContentLoaded)
     runGame('addition');
 })
@@ -28,9 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function runGame(gameType) {
 
+    document.getElementById('answer-box').value = '';
+    document.getElementById('answer-box').focus();
+
     // Creates random number between 1 and 25
-    let num1 = Math.floor(Math.random() * 5) + 1;
-    let num2 = Math.floor(Math.random() * 5) + 1;
+    let num1 = Math.floor(Math.random() * 25) + 1;
+    let num2 = Math.floor(Math.random() * 25) + 1;
 
     // Checks if the gameType is addition, if not its going check if its multiply
     if(gameType === 'addition') {
@@ -152,8 +162,8 @@ function displayAdditionQuestion(operand1, operand2) {
 
 function displaySubtractQuestion(operand1, operand2) {
     // Gets the operands and operator from the DOM and assign them a variable
-    document.getElementById('operand1').textContent = operand1;
-    document.getElementById('operand2').textContent = operand2;   
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand2 : operand1;
     document.getElementById('operator').textContent = '-'; 
 }
 
