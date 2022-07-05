@@ -29,14 +29,25 @@ document.addEventListener("DOMContentLoaded", function() {
 function runGame(gameType) {
 
     // Creates random number between 1 and 25
-    let num1 = Math.floor(Math.random() * 1) + 1;
-    let num2 = Math.floor(Math.random() * 1) + 1;
+    let num1 = Math.floor(Math.random() * 5) + 1;
+    let num2 = Math.floor(Math.random() * 5) + 1;
 
-    // Checks if the gameType is addition, if not its going to mark the unknown gameType
+    // Checks if the gameType is addition, if not its going check if its multiply
     if(gameType === 'addition') {
         // Access the function for addition
-        displayAdditionQuestion(num1,num2);
-    } else {
+        displayAdditionQuestion(num1, num2);
+    } 
+    //Checks if the gameType is multiply, if not its going check if its subtract
+    else if(gameType === 'multiply') {
+        displayMultiplyQuestion(num1, num2);
+    }
+
+    // Checks if the gameType is subtract, if not its going to mark the unknown gameType
+    else if(gameType === 'subtract') {
+        displaySubtractQuestion(num1, num2);
+    }
+    
+    else {
         // If it gameType doesn't exist throw errors!
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -89,7 +100,19 @@ function calculateCorrectAnswer() {
     if (operator === '+') {
         return [operand1 + operand2, 'addition'];
         checkAnswer();
-    } else {
+    }
+
+    else if(operator === 'x') {
+        return [operand1 * operand2, 'multiply'];
+        checkAnswer();
+    } 
+    
+    else if(operator === '-') {
+        return [operand1 - operand2, 'subtract'];
+        checkAnswer();
+    } 
+
+    else {
         // Alert the user that there is no operator in place
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`
@@ -121,15 +144,22 @@ function incrementWrongAnswer() {
  * Displays the random operands and the operator (+) for the Addition game.
  */
 function displayAdditionQuestion(operand1, operand2) {
+    // Gets the operands and operator from the DOM and assign them a variable
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;   
     document.getElementById('operator').textContent = '+'; 
 }
 
-function displaySubtractQuestion() {
-    
+function displaySubtractQuestion(operand1, operand2) {
+    // Gets the operands and operator from the DOM and assign them a variable
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;   
+    document.getElementById('operator').textContent = '-'; 
 }
 
-function displayMultiplyQuestion() {
-    
+function displayMultiplyQuestion(operand1, operand2) {
+    // Gets the operands and operator from the DOM and assign them a variable
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;   
+    document.getElementById('operator').textContent = 'x'; 
 }
