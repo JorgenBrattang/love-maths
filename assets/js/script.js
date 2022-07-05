@@ -52,9 +52,14 @@ function runGame(gameType) {
         displayMultiplyQuestion(num1, num2);
     }
 
-    // Checks if the gameType is subtract, if not its going to mark the unknown gameType
+    // Checks if the gameType is subtract, if not its going check if its division
     else if(gameType === 'subtract') {
         displaySubtractQuestion(num1, num2);
+    }
+
+    // Checks if the gameType is division, if not its going to mark the unknown gameType
+    else if(gameType === 'division') {
+        displayDivisionQuestion(num1, num2);
     }
     
     else {
@@ -122,6 +127,11 @@ function calculateCorrectAnswer() {
         checkAnswer();
     } 
 
+    else if(operator === '/') {
+        return [operand1 / operand2, 'division'];
+        checkAnswer();
+    } 
+
     else {
         // Alert the user that there is no operator in place
         alert(`Unimplemented operator ${operator}`);
@@ -172,4 +182,18 @@ function displayMultiplyQuestion(operand1, operand2) {
     document.getElementById('operand1').textContent = operand1;
     document.getElementById('operand2').textContent = operand2;   
     document.getElementById('operator').textContent = 'x'; 
+}
+
+function displayDivisionQuestion(operand1, operand2) {
+    // Gets the operands and operator from the DOM and assign them a variable
+
+    let divNum1 = operand1 > operand2 ? operand1 : operand2;
+    let divNum2 = operand1 > operand2 ? operand2 : operand1;
+
+    operand1 = divNum1 * divNum2;
+    operand2 = divNum2;
+
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = '/'; 
 }
