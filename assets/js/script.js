@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function runGame(gameType) {
 
     // Creates random number between 1 and 25
-    let num1 = Math.floor(Math.random() * 25) + 1;
-    let num2 = Math.floor(Math.random() * 25) + 1;
+    let num1 = Math.floor(Math.random() * 1) + 1;
+    let num2 = Math.floor(Math.random() * 1) + 1;
 
     // Checks if the gameType is addition, if not its going to mark the unknown gameType
     if(gameType === 'addition') {
@@ -63,8 +63,10 @@ function checkAnswer() {
     // Checks if isCorrect is equal to true
     if(isCorrect) {
         alert("Hey! You got it right! :D");
+        incrementScore();
     } else {
         alert(`Aww.... you answered ${userAnswer}. The correct answer was ${calculatedAnswer[0]}!`);
+        incrementWrongAnswer()
     }
 
     // After checkAnswer() is finished, launch a new game by getting the calculateCorrectAnswer()
@@ -95,12 +97,24 @@ function calculateCorrectAnswer() {
 
 }
 
+/**
+ * Gets the current score from the DOM and increment it by 1
+ */
 function incrementScore() {
-    
+    // Gets the oldScore from the DOM and converting it to an integer
+    let oldScore = parseInt(document.getElementById('score').innerText);
+    // Creates a new one oldScore with an increment of 1
+    document.getElementById('score').innerText = ++oldScore;
 }
 
+/**
+ * Gets the current incorrect score from the DOM and increment it by 1
+ */
 function incrementWrongAnswer() {
-    
+    // Gets the oldScore from the DOM and converting it to an integer
+    let oldScore = parseInt(document.getElementById('incorrect').innerText);
+    // Creates a new one oldScore with an increment of 1
+    document.getElementById('incorrect').innerText = ++oldScore;
 }
 
 /**
